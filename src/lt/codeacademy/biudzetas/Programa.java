@@ -22,7 +22,7 @@ public class Programa {
 
         while (true) {
             System.out.println(meniu.pagrindinisMeniu());
-            int input = sc.nextInt();
+            int input = Integer.parseInt(sc.nextLine());
             if (input == 0) {
                 break;
             }
@@ -56,7 +56,7 @@ public class Programa {
     private static void irasoIstrynimas(Biudzetas biudzetas, Scanner sc) {
         System.out.println(biudzetas.gautiIrasoString());
         System.out.println("Pasirinkite ID įrašo, kurį norite pašalinti");
-        int irasas = sc.nextInt();
+        int irasas = Integer.parseInt(sc.nextLine());
         biudzetas.irasoIstrynimas(irasas);
     }
 
@@ -64,7 +64,7 @@ public class Programa {
         int input;
         System.out.println(biudzetas.gautiIrasoString());
         System.out.println("Pasirinkite irasa kuri norite koreguoti, iveskite iraso ID: ");
-        int id = sc.nextInt() - 1;
+        int id = Integer.parseInt(sc.nextLine()) - 1;
         Irasas naujasIrasas = biudzetas.gautiIrasaPagalIDNumeri(id);
         koreguotiSuma(sc, naujasIrasas);
         koreguotiKategorija(sc, naujasIrasas);
@@ -76,12 +76,12 @@ public class Programa {
         int input;
         System.out.println("kategorija:" + naujasIrasas.getTipas());
         System.out.println("[1] - redaguoti, [2] - toliau");
-        input = sc.nextInt();
+        input = Integer.parseInt(sc.nextLine());
         if (input == 1) {
             boolean vestiKategorija = true;
             System.out.println("Iveskite naują kategoriją: ");
             String kategorija = sc.nextLine();
-            kategorija = sc.nextLine();
+//            kategorija = sc.nextLine();
             while (vestiKategorija) { // vartotojas turi vesti kategorija tol kol ji teisinga
                 if (naujasIrasas.setTipas(kategorija)) { // tikrinu ar ivesta kategorija tokia egzistuoja
                     vestiKategorija = false;
@@ -97,18 +97,18 @@ public class Programa {
         int input;
         System.out.println("Suma:" + naujasIrasas.getSuma());
         System.out.println("[1] - redaguoti, [2] - toliau");
-        input = sc.nextInt();
+        input = Integer.parseInt(sc.nextLine());
         if (input == 1) {
             boolean validInput = false;
             while (!validInput) {
                 System.out.println("Iveskite naują sumą: ");
                 try {
-                    int naujaSuma = sc.nextInt();
+                    int naujaSuma = Integer.parseInt(sc.nextLine());
                     naujasIrasas.setSuma(naujaSuma);
                     validInput = true;
-                } catch (InputMismatchException e) {
+                } catch (InputMismatchException | NumberFormatException e) {
                     System.out.println("Įvesta neleistina reikšmė. Prašome įvesti skaičių.");
-                    sc.next(); // Išvalau neteisingą įvestį
+//                    sc.next();
                 }
             }
         }
@@ -118,19 +118,18 @@ public class Programa {
         int input;
         System.out.println("Data: " + naujasIrasas.getData().format(myFormatObj));
         System.out.println("[1] - redaguoti, [2] - toliau");
-        input = sc.nextInt();
+        input = Integer.parseInt(sc.nextLine());
         if (input == 1) {
             boolean validInput = false;
             while (!validInput) {
                 System.out.println("Iveskite naują datą: YYYY-MM-DD HH:mm");
                 try {
                     String data = sc.nextLine();
-                    data = sc.nextLine();
+//                    data = sc.nextLine();
                     naujasIrasas.setData(data, myFormatObj);
                     validInput = true;
                 } catch (DateTimeParseException | InputMismatchException e) {
                     System.out.println("Įvesta neleistina reikšmė. Prašome įvesti datą formatu: YYYY-MM-DD HH:mm.");
-                    sc.next(); // Išvalau neteisingą įvestį
                 }
             }
         }
@@ -140,7 +139,7 @@ public class Programa {
         System.out.println(meniu.islaiduKategorijuMeniu());
         boolean noriuVestiIslaidas = true;
         while (noriuVestiIslaidas) {
-            int sk = sc.nextInt();
+            int sk = Integer.parseInt(sc.nextLine());
             try {
                 IslaiduKategorija kategorija = switch (sk) {
                     case 1 -> IslaiduKategorija.PASKOLA;
@@ -150,7 +149,7 @@ public class Programa {
                     default -> throw new RuntimeException();
                 };
                 System.out.println("iveskite kategorijos " + kategorija + " suma");
-                int suma = sc.nextInt();
+                int suma = Integer.parseInt(sc.nextLine());
                 biudzetas.pridetiIrasa(new IslaiduIrasas(suma, LocalDateTime.now(), kategorija, "papildoma info"));
             } catch (InputMismatchException e) {
                 System.out.println("Įvesta neleistina reikšmė. Prašome įvesti skaičių.");
@@ -166,7 +165,7 @@ public class Programa {
         System.out.println(meniu.pajamuKategorijuMeniu());
         boolean noriuVestiPajamas = true;
         while (noriuVestiPajamas) {
-            int sk = sc.nextInt();
+            int sk = Integer.parseInt(sc.nextLine());
             try {
                 PajamuKategorija kategorija = switch (sk) {
                     case 1 -> PajamuKategorija.ALGA;
@@ -175,7 +174,7 @@ public class Programa {
                     default -> throw new RuntimeException();
                 };
                 System.out.println("iveskite kategorijos " + kategorija + " suma");
-                int suma = sc.nextInt();
+                int suma = Integer.parseInt(sc.nextLine());
                 biudzetas.pridetiIrasa(new PajamuIrasas(suma, LocalDateTime.now(), kategorija, "papildoma info"));
             } catch (InputMismatchException e) {
                 System.out.println("Įvesta neleistina reikšmė. Prašome įvesti skaičių.");
