@@ -6,6 +6,7 @@ import lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta.enumai.PajamuKategorij
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -63,15 +64,16 @@ public class Programa {
         int input;
         System.out.println(biudzetas.gautiIrasoString());
         System.out.println("Pasirinkite irasa kuri norite koreguoti, iveskite iraso ID: ");
-        int id = sc.nextInt()-1;
+        int id = sc.nextInt() - 1;
         Irasas naujasIrasas = biudzetas.gautiIrasaPagalIDNumeri(id);
-        System.out.println("Suma:" + naujasIrasas.getSuma());
-        System.out.println("[1] - redaguoti, [2] - toliau");
-        input = sc.nextInt();
-        if (input == 1) {
-            System.out.println("Iveskite naują sumą: ");
-            naujasIrasas.setSuma(sc.nextInt());
-        }
+        koreguotiSuma(sc, naujasIrasas);
+        koreguotiKategorija(sc, naujasIrasas);
+        koreguotiData(sc, myFormatObj, naujasIrasas);
+        biudzetas.atnaujintiIrasa(naujasIrasas, id);
+    }
+
+    private static void koreguotiKategorija(Scanner sc, Irasas naujasIrasas) {
+        int input;
         System.out.println("kategorija:" + naujasIrasas.getTipas());
         System.out.println("[1] - redaguoti, [2] - toliau");
         input = sc.nextInt();
@@ -82,28 +84,61 @@ public class Programa {
             kategorija = sc.nextLine();
             while (vestiKategorija) { // vartotojas turi vesti kategorija tol kol ji teisinga
                 if (naujasIrasas.setTipas(kategorija)) { // tikrinu ar ivesta kategorija tokia egzistuoja
-                    vestiKategorija =false;
+                    vestiKategorija = false;
                 } else {
                     System.out.println("Ivestas tipas neteisingas, veskite dar kartą");
                     kategorija = sc.nextLine();
                 }
             }
         }
+    }
+
+    private static void koreguotiSuma(Scanner sc, Irasas naujasIrasas) {
+        int input;
+        System.out.println("Suma:" + naujasIrasas.getSuma());
+        System.out.println("[1] - redaguoti, [2] - toliau");
+        input = sc.nextInt();
+        if (input == 1) {
+            boolean validInput = false;
+            while (!validInput) {
+                System.out.println("Iveskite naują sumą: ");
+                try {
+                    int naujaSuma = sc.nextInt();
+                    naujasIrasas.setSuma(naujaSuma);
+                    validInput = true;
+                } catch (InputMismatchException e) {
+                    System.out.println("Įvesta neleistina reikšmė. Prašome įvesti skaičių.");
+                    sc.next(); // Išvalau neteisingą įvestį
+                }
+            }
+        }
+    }
+
+    private static void koreguotiData(Scanner sc, DateTimeFormatter myFormatObj, Irasas naujasIrasas) {
+        int input;
         System.out.println("Data: " + naujasIrasas.getData().format(myFormatObj));
         System.out.println("[1] - redaguoti, [2] - toliau");
         input = sc.nextInt();
         if (input == 1) {
-            System.out.println("Iveskite naują datą: YYYY-MM-DD HH:mm");
-            String data = sc.nextLine();
-            data = sc.nextLine();
-            naujasIrasas.setData(data, myFormatObj);
+            boolean validInput = false;
+            while (!validInput) {
+                System.out.println("Iveskite naują datą: YYYY-MM-DD HH:mm");
+                try {
+                    String data = sc.nextLine();
+                    data = sc.nextLine();
+                    naujasIrasas.setData(data, myFormatObj);
+                    validInput = true;
+                } catch (DateTimeParseException | InputMismatchException e) {
+                    System.out.println("Įvesta neleistina reikšmė. Prašome įvesti datą formatu: YYYY-MM-DD HH:mm.");
+                    sc.next(); // Išvalau neteisingą įvestį
+                }
+            }
         }
-        biudzetas.atnaujintiIrasa(naujasIrasas,id);
     }
 
     private static void islaiduIvedimas(Meniu meniu, Scanner sc, Biudzetas biudzetas) {
         System.out.println(meniu.islaiduKategorijuMeniu());
-        boolean noriuVestiIslaidas =true;
+        boolean noriuVestiIslaidas = true;
         while (noriuVestiIslaidas) {
             int sk = sc.nextInt();
             try {
@@ -112,7 +147,7 @@ public class Programa {
                     case 2 -> IslaiduKategorija.LIZINGAS;
                     case 3 -> IslaiduKategorija.KELIONE;
                     case 4 -> IslaiduKategorija.PIRKINIAI;
-                    default ->  throw new RuntimeException();
+                    default -> throw new RuntimeException();
                 };
                 System.out.println("iveskite kategorijos " + kategorija + " suma");
                 int suma = sc.nextInt();
@@ -129,7 +164,7 @@ public class Programa {
 
     private static void pajamuIvedimas(Meniu meniu, Scanner sc, Biudzetas biudzetas) {
         System.out.println(meniu.pajamuKategorijuMeniu());
-        boolean noriuVestiPajamas =true;
+        boolean noriuVestiPajamas = true;
         while (noriuVestiPajamas) {
             int sk = sc.nextInt();
             try {
@@ -138,14 +173,14 @@ public class Programa {
                     case 2 -> PajamuKategorija.INVESTICIJOS;
                     case 3 -> PajamuKategorija.STIPENDIJA;
                     default -> throw new RuntimeException();
-                 };
+                };
                 System.out.println("iveskite kategorijos " + kategorija + " suma");
                 int suma = sc.nextInt();
                 biudzetas.pridetiIrasa(new PajamuIrasas(suma, LocalDateTime.now(), kategorija, "papildoma info"));
             } catch (InputMismatchException e) {
                 System.out.println("Įvesta neleistina reikšmė. Prašome įvesti skaičių.");
                 sc.next(); // Išvalau neteisingą įvestį
-            } catch(RuntimeException e) {
+            } catch (RuntimeException e) {
                 noriuVestiPajamas = false;
             }
         }
