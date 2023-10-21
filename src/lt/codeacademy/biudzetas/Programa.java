@@ -108,7 +108,6 @@ public class Programa {
                     validInput = true;
                 } catch (InputMismatchException | NumberFormatException e) {
                     System.out.println("Įvesta neleistina reikšmė. Prašome įvesti skaičių.");
-//                    sc.next();
                 }
             }
         }
@@ -125,7 +124,6 @@ public class Programa {
                 System.out.println("Iveskite naują datą: YYYY-MM-DD HH:mm");
                 try {
                     String data = sc.nextLine();
-//                    data = sc.nextLine();
                     naujasIrasas.setData(data, myFormatObj);
                     validInput = true;
                 } catch (DateTimeParseException | InputMismatchException e) {
@@ -153,7 +151,6 @@ public class Programa {
                 biudzetas.pridetiIrasa(new IslaiduIrasas(suma, LocalDateTime.now(), kategorija, "papildoma info"));
             } catch (InputMismatchException e) {
                 System.out.println("Įvesta neleistina reikšmė. Prašome įvesti skaičių.");
-                sc.next(); // Išvalau neteisingą įvestį
             } catch (RuntimeException e) {
                 System.out.println("Įvesta neleistina reikšmė. Prašome įvesti skaičių.");
                 noriuVestiIslaidas = false;
@@ -178,7 +175,6 @@ public class Programa {
                 biudzetas.pridetiIrasa(new PajamuIrasas(suma, LocalDateTime.now(), kategorija, "papildoma info"));
             } catch (InputMismatchException e) {
                 System.out.println("Įvesta neleistina reikšmė. Prašome įvesti skaičių.");
-                sc.next(); // Išvalau neteisingą įvestį
             } catch (RuntimeException e) {
                 noriuVestiPajamas = false;
             }
