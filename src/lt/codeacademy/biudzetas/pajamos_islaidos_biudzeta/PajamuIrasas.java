@@ -41,7 +41,7 @@ public class PajamuIrasas extends Irasas{
     @Override
     public String toString(){
         return String.format(
-                "pajamos ID: %s, Suma €%s, kategorija %s, data: %s, pajamų gavimo būdas %s%n",
+                "pajamos ID: %s, Suma €%s, kategorija %s, data: %s, pajamų gavimo būdas %s",
                 getId(), getSuma(), getTipas(), getData().format(myFormatObj),getBudas());
     }
 

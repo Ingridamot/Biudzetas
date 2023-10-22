@@ -69,31 +69,19 @@ public class Biudzetas {
     }
 
     public List<String> readLines(String fileName){
-        List<String> perskaitytosLines = new ArrayList<>();
         try {
             var reader = new BufferedReader(new FileReader(fileName));
-            var lines = reader.lines().collect(Collectors.toList());
-            for(var irasasList: lines){
-                String[]atskirosEiluteDalys = irasasList.split(",");
-                String irasoID = atskirosEiluteDalys[0];
-                String irasoSuma = atskirosEiluteDalys[1];
-                String irasoKategorija = atskirosEiluteDalys[2];
-                String irasoData = atskirosEiluteDalys[2];
-                String irasoBudas = atskirosEiluteDalys[3];
-                String perskaitytasIrasas = String.format("%s, %s, %s, %s, %s%n",irasoID,irasoSuma, irasoKategorija, irasoData, irasoBudas );
-                perskaitytosLines.add(perskaitytasIrasas);
-            }
+            return reader.lines().collect(Collectors.toList());
         } catch (IOException e){
             throw new RuntimeException(e);
         }
-        return perskaitytosLines;
     }
 
     public void writeToFile(String filename){
         try {
             var writer = new BufferedWriter(new FileWriter(filename));
             for(Irasas irasas: irasasList){
-                writer.write(irasas.toString());
+                writer.write(irasas.toString()+'\n');
             }
             writer.flush();
             writer.close();

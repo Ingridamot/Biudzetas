@@ -35,9 +35,22 @@ public class Programa {
                 case 5 -> spausdintiIrasus(biudzetas);
                 case 6 -> spausdintiBalansa(biudzetas);
                 case 7 -> issaugotiDuomenisFaile(biudzetas);
-                case 8 -> System.out.println(biudzetas.readLines("sarasas-pajamos-ir-islaidos.csv"));
+                case 8 -> gautiDuomenisIsFailo(biudzetas);
                 default -> System.out.println("Netinkamas pasirinkimas, iveskite skaičių nuo 0 iki 5");
             }
+        }
+    }
+
+    private static void gautiDuomenisIsFailo(Biudzetas biudzetas) {
+        for (var irasasList : biudzetas.readLines("sarasas-pajamos-ir-islaidos.csv")) {
+            String[] atskirosEiluteDalys = irasasList.split(",");
+
+            String irasoID = atskirosEiluteDalys[0];
+            String irasoSuma = atskirosEiluteDalys[1];
+            String irasoKategorija = atskirosEiluteDalys[2];
+            String irasoData = atskirosEiluteDalys[3];
+            String irasoBudas = atskirosEiluteDalys[4];
+            System.out.println(irasoID + ", " + irasoSuma + ", " + irasoKategorija + ", " + irasoData + ", " + irasoBudas);
         }
     }
 

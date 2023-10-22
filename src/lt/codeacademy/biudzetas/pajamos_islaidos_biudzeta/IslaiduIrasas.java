@@ -35,7 +35,7 @@ public class IslaiduIrasas extends Irasas{
     @Override
     public String toString(){
         return String.format(
-                "islaidos ID: %s, Suma €%s, kategorija %s, data: %s, išlaidos būdas %s%n ",
+                "islaidos ID: %s, Suma €%s, kategorija %s, data: %s, išlaidos būdas %s ",
                  getId(), getSuma(), getTipas(), getData().format(myFormatObj), getBudas());
     }
     @Override
