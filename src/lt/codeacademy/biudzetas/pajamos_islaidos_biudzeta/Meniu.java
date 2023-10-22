@@ -11,6 +11,8 @@ public class Meniu {
                 [4] - PAŠALINTI ĮRAŠĄ.
                 [5] - ATSPAUSDINTI PAJAMŲ IR IŠLAIDŲ IŠKLOTINĘ.
                 [6] - ATSPAUSDINTI BALANSA.
+                [7] - IŠSAUGOTI ĮRAŠUS Į FAILĄ.
+                [8] - GAUTI DUOMENIS IŠ ĮRAŠŲ FAILO.
                 [0] - BAIGTI.""";
     }
 

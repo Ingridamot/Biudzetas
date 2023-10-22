@@ -1,9 +1,11 @@
 package lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta;
 
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Biudzetas {
     private List<Irasas> irasasList;
@@ -65,6 +67,28 @@ public class Biudzetas {
 
     public void irasoIstrynimas(int id){
         irasasList.remove(id);
+    }
+
+    public List<String> readLines(String fileName){
+        try {
+            var reader = new BufferedReader(new FileReader(fileName));
+            return reader.lines().collect(Collectors.toList());
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void writeToFile(String filename){
+        try {
+            var writer = new BufferedWriter(new FileWriter(filename));
+            for(Irasas irasas: irasasList){
+                writer.write(irasas.toString());
+            }
+            writer.flush();
+            writer.close();
+        } catch (IOException e){
+            throw new RuntimeException("Kazkas netaip", e);
+        }
     }
 }
 

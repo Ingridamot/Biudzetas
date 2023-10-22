@@ -34,6 +34,8 @@ public class Programa {
                 case 4 -> irasoIstrynimas(biudzetas, sc);
                 case 5 -> spausdintiIrasus(biudzetas);
                 case 6 -> spausdintiBalansa(biudzetas);
+                case 7 -> biudzetas.writeToFile("sarasas-pajamos-ir-islaidos.csv");
+                case 8 -> {}
                 default -> System.out.println("Netinkamas pasirinkimas, iveskite skaičių nuo 0 iki 5");
             }
         }
@@ -81,7 +83,6 @@ public class Programa {
             boolean vestiKategorija = true;
             System.out.println("Iveskite naują kategoriją: ");
             String kategorija = sc.nextLine();
-//            kategorija = sc.nextLine();
             while (vestiKategorija) { // vartotojas turi vesti kategorija tol kol ji teisinga
                 if (naujasIrasas.setTipas(kategorija)) { // tikrinu ar ivesta kategorija tokia egzistuoja
                     vestiKategorija = false;
