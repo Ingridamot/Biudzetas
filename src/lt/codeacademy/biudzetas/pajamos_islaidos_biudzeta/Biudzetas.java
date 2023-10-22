@@ -81,7 +81,7 @@ public class Biudzetas {
         try {
             var writer = new BufferedWriter(new FileWriter(filename));
             for(Irasas irasas: irasasList){
-                writer.write(irasas.toString()+'\n');
+                writer.write(irasas.toString());
             }
             writer.flush();
             writer.close();

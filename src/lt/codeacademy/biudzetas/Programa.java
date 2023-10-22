@@ -45,12 +45,16 @@ public class Programa {
         for (var irasasList : biudzetas.readLines("sarasas-pajamos-ir-islaidos.csv")) {
             String[] atskirosEiluteDalys = irasasList.split(",");
 
-            String irasoID = atskirosEiluteDalys[0];
-            String irasoSuma = atskirosEiluteDalys[1];
-            String irasoKategorija = atskirosEiluteDalys[2];
-            String irasoData = atskirosEiluteDalys[3];
-            String irasoBudas = atskirosEiluteDalys[4];
-            System.out.println(irasoID + ", " + irasoSuma + ", " + irasoKategorija + ", " + irasoData + ", " + irasoBudas);
+            if (atskirosEiluteDalys.length >= 5) {
+                String irasoID = atskirosEiluteDalys[0];
+                String irasoSuma = atskirosEiluteDalys[1];
+                String irasoKategorija = atskirosEiluteDalys[2];
+                String irasoData = atskirosEiluteDalys[3];
+                String irasoBudas = atskirosEiluteDalys[4];
+                System.out.println(irasoID + ", " + irasoSuma + ", " + irasoKategorija + ", " + irasoData + ", " + irasoBudas);
+            } else {
+                System.out.println("pagavau paskutine tuscia eilute, reikia ispresti: " + irasasList);
+            }
         }
     }
 
