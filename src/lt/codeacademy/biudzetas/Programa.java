@@ -34,11 +34,16 @@ public class Programa {
                 case 4 -> irasoIstrynimas(biudzetas, sc);
                 case 5 -> spausdintiIrasus(biudzetas);
                 case 6 -> spausdintiBalansa(biudzetas);
-                case 7 -> biudzetas.writeToFile("sarasas-pajamos-ir-islaidos.csv");
-                case 8 -> {}
+                case 7 -> issaugotiDuomenisFaile(biudzetas);
+                case 8 -> System.out.println(biudzetas.readLines("sarasas-pajamos-ir-islaidos.csv"));
                 default -> System.out.println("Netinkamas pasirinkimas, iveskite skaičių nuo 0 iki 5");
             }
         }
+    }
+
+    private static void issaugotiDuomenisFaile(Biudzetas biudzetas) {
+        biudzetas.writeToFile("sarasas-pajamos-ir-islaidos.csv");
+        System.out.println("CSV failas sukurtas, jame rasite visus irašus.");
     }
 
     private static void spausdintiBalansa(Biudzetas biudzetas) {

@@ -4,7 +4,6 @@ package lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Biudzetas {
@@ -70,12 +69,24 @@ public class Biudzetas {
     }
 
     public List<String> readLines(String fileName){
+        List<String> perskaitytosLines = new ArrayList<>();
         try {
             var reader = new BufferedReader(new FileReader(fileName));
-            return reader.lines().collect(Collectors.toList());
+            var lines = reader.lines().collect(Collectors.toList());
+            for(var irasasList: lines){
+                String[]atskirosEiluteDalys = irasasList.split(",");
+                String irasoID = atskirosEiluteDalys[0];
+                String irasoSuma = atskirosEiluteDalys[1];
+                String irasoKategorija = atskirosEiluteDalys[2];
+                String irasoData = atskirosEiluteDalys[2];
+                String irasoBudas = atskirosEiluteDalys[3];
+                String perskaitytasIrasas = String.format("%s, %s, %s, %s, %s%n",irasoID,irasoSuma, irasoKategorija, irasoData, irasoBudas );
+                perskaitytosLines.add(perskaitytasIrasas);
+            }
         } catch (IOException e){
             throw new RuntimeException(e);
         }
+        return perskaitytosLines;
     }
 
     public void writeToFile(String filename){
