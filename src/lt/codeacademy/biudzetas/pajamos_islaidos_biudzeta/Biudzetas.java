@@ -1,6 +1,8 @@
 package lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta;
 
 
+import lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta.enumai.PajamuIslaiduEnumas;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +23,12 @@ public class Biudzetas {
 
     public void pridetiIrasa(Irasas irasas) {
         this.irasasList.add(irasas);
-    }
+        if (irasas.getTipas()== PajamuIslaiduEnumas.PAJAMOS){
+            pajamos.add((PajamuIrasas) irasas);
+        }else{
+            islaidos.add((IslaiduIrasas) irasas);
+        }
 
-    public ArrayList<PajamuIrasas> getPajamuIrasus() { // sukurtas paga uzduoties reikalavimus
-        return pajamos;
-    }
-
-    public ArrayList<IslaiduIrasas> getIslaiduIrasus() { // sukurtas paga uzduoties reikalavimus
-        return islaidos;
     }
 
 
@@ -80,8 +80,12 @@ public class Biudzetas {
     public void writeToFile(String filename){
         try {
             var writer = new BufferedWriter(new FileWriter(filename));
-            for(Irasas irasas: irasasList){
-                writer.write(irasas.toString());
+            for(int i =0; i< irasasList.size(); i++){
+                if (i == irasasList.size()-1){
+                    writer.write(irasasList.get(i).toString());
+                } else {
+                    writer.write(irasasList.get(i).toString());
+                }
             }
             writer.flush();
             writer.close();

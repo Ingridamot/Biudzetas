@@ -12,8 +12,7 @@ public class PajamuIrasas extends Irasas{
     private PajamuGavimoBudas budas;
 
     public PajamuIrasas(double suma, LocalDateTime data, PajamuKategorija kategorija, String papildomaInfo) {
-        super(suma, data, papildomaInfo);
-        setTipas(PajamuIslaiduEnumas.PAJAMOS);
+        super(suma, data, papildomaInfo, PajamuIslaiduEnumas.PAJAMOS);
         this.kategorija = kategorija;
         this.budas = PajamuGavimoBudas.I_SASKAITA;
     }
@@ -29,12 +28,8 @@ public class PajamuIrasas extends Irasas{
     }
 
 
-    public PajamuKategorija getKategorija(){
-        return kategorija;
-    }
-
     @Override
-    public String getTipas() {
+    public String getKategorija() {
             return kategorija.name();
     }
 
@@ -42,11 +37,11 @@ public class PajamuIrasas extends Irasas{
     public String toString(){
         return String.format(
                 "pajamos ID: %s, Suma €%s, kategorija %s, data: %s, pajamų gavimo būdas %s%n",
-                getId(), getSuma(), getTipas(), getData().format(myFormatObj),getBudas());
+                getId(), getSuma(), getKategorija(), getData().format(myFormatObj),getBudas());
     }
 
     @Override
-    public boolean setTipas(String tipas) {
+    public boolean setKategorija(String tipas) {
         tipas = tipas.toUpperCase();
         switch (tipas) {
             case "ALGA" -> kategorija = PajamuKategorija.ALGA;

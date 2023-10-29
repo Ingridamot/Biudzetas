@@ -11,16 +11,20 @@ public class Irasas {
     private double suma;
     private LocalDateTime data;
     private String papildomaInfo;
+    private PajamuIslaiduEnumas kategorija;
     private PajamuIslaiduEnumas tipas;
+
+
     private static int nextId = 1;
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public Irasas( double suma, LocalDateTime data, String papildomaInfo) {
+    public Irasas( double suma, LocalDateTime data, String papildomaInfo, PajamuIslaiduEnumas tipas) {
         this.id = nextId;
         nextId++;
         this.suma = suma;
         this.data = data;
         this.papildomaInfo = papildomaInfo;
+        this.tipas = tipas;
     }
 
     public int getId() {
@@ -29,6 +33,10 @@ public class Irasas {
 
     public double getSuma() {
         return suma;
+    }
+
+    public PajamuIslaiduEnumas getTipas() {
+        return tipas;
     }
 
     public void setSuma(double suma) {
@@ -47,15 +55,15 @@ public class Irasas {
         return papildomaInfo;
     }
 
-    public String getTipas() {
-        return tipas.name();
+    public String getKategorija() {
+        return kategorija.name();
     }
 
-    public void setTipas(PajamuIslaiduEnumas tipas) {
-        this.tipas = tipas;
+    public void setKategorija(PajamuIslaiduEnumas kategorija) {
+        this.kategorija = kategorija;
     }
 
-    public boolean setTipas(String tipas){
+    public boolean setKategorija(String kategorija){
         return true;
     }
 

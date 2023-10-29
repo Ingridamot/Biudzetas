@@ -82,6 +82,7 @@ public class Programa {
         System.out.println("Pasirinkite ID įrašo, kurį norite pašalinti");
         int irasas = Integer.parseInt(sc.nextLine());
         biudzetas.irasoIstrynimas(irasas);
+        System.out.println(biudzetas.gautiIrasoString());
     }
 
     private static void irasoKoregavimas(Biudzetas biudzetas, Scanner sc, DateTimeFormatter myFormatObj) {
@@ -98,7 +99,7 @@ public class Programa {
 
     private static void koreguotiKategorija(Scanner sc, Irasas naujasIrasas) {
         int input;
-        System.out.println("kategorija:" + naujasIrasas.getTipas());
+        System.out.println("kategorija:" + naujasIrasas.getKategorija());
         System.out.println("[1] - redaguoti, [2] - toliau");
         input = Integer.parseInt(sc.nextLine());
         if (input == 1) {
@@ -106,7 +107,7 @@ public class Programa {
             System.out.println("Iveskite naują kategoriją: ");
             String kategorija = sc.nextLine();
             while (vestiKategorija) { // vartotojas turi vesti kategorija tol kol ji teisinga
-                if (naujasIrasas.setTipas(kategorija)) { // tikrinu ar ivesta kategorija tokia egzistuoja
+                if (naujasIrasas.setKategorija(kategorija)) { // tikrinu ar ivesta kategorija tokia egzistuoja
                     vestiKategorija = false;
                 } else {
                     System.out.println("Ivestas tipas neteisingas, veskite dar kartą");

@@ -11,8 +11,7 @@ public class IslaiduIrasas extends Irasas{
 
 
     public IslaiduIrasas(double suma, LocalDateTime data, IslaiduKategorija kategorija, String papildomaInfo) {
-        super(suma, data, papildomaInfo);
-        setTipas(PajamuIslaiduEnumas.ISLAIDOS);
+        super(suma, data, papildomaInfo,PajamuIslaiduEnumas.ISLAIDOS);
         this.kategorija = kategorija;
         this.budas = IslaiduAtsiskaitymoBudas.MASTERCARD;
     }
@@ -28,7 +27,7 @@ public class IslaiduIrasas extends Irasas{
     }
 
     @Override
-    public String getTipas(){
+    public String getKategorija(){
         return kategorija.name();
     }
 
@@ -36,10 +35,10 @@ public class IslaiduIrasas extends Irasas{
     public String toString(){
         return String.format(
                 "islaidos ID: %s, Suma €%s, kategorija %s, data: %s, išlaidos būdas %s%n ",
-                 getId(), getSuma(), getTipas(), getData().format(myFormatObj), getBudas());
+                 getId(), getSuma(), getKategorija(), getData().format(myFormatObj), getBudas());
     }
     @Override
-    public boolean setTipas(String tipas) {
+    public boolean setKategorija(String tipas) {
         tipas = tipas.toUpperCase();
         switch (tipas) {
             case "PASKOLA" -> kategorija = IslaiduKategorija.PASKOLA;
