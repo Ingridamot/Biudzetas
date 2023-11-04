@@ -46,8 +46,8 @@ public class Programa {
             String[] atskirosEiluteDalys = irasasList.split(",");
 
             if (atskirosEiluteDalys.length >= 5) {
-                String irasoID = atskirosEiluteDalys[0];
-                String irasoSuma = atskirosEiluteDalys[1];
+                int irasoID = Integer.parseInt(atskirosEiluteDalys[0]);
+                int irasoSuma = Integer.parseInt(atskirosEiluteDalys[1]);
                 String irasoKategorija = atskirosEiluteDalys[2];
                 String irasoData = atskirosEiluteDalys[3];
                 String irasoBudas = atskirosEiluteDalys[4];
