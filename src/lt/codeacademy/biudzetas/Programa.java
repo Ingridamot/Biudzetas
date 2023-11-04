@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Programa {
@@ -42,20 +43,8 @@ public class Programa {
     }
 
     private static void gautiDuomenisIsFailo(Biudzetas biudzetas) {
-        for (var irasasList : biudzetas.readLines("sarasas-pajamos-ir-islaidos.csv")) {
-            String[] atskirosEiluteDalys = irasasList.split(",");
-
-            if (atskirosEiluteDalys.length >= 5) {
-                int irasoID = Integer.parseInt(atskirosEiluteDalys[0]);
-                int irasoSuma = Integer.parseInt(atskirosEiluteDalys[1]);
-                String irasoKategorija = atskirosEiluteDalys[2];
-                String irasoData = atskirosEiluteDalys[3];
-                String irasoBudas = atskirosEiluteDalys[4];
-                System.out.println(irasoID + ", " + irasoSuma + ", " + irasoKategorija + ", " + irasoData + ", " + irasoBudas);
-            } else {
-                System.out.println("pagavau paskutine tuscia eilute, reikia ispresti: " + irasasList);
-            }
-        }
+        List<String> lines = biudzetas.readLines("sarasas-pajamos-ir-islaidos.csv");
+        lines.forEach((line) -> {System.out.println(line);});
     }
 
     private static void issaugotiDuomenisFaile(Biudzetas biudzetas) {

@@ -1,3 +1,6 @@
-pajamos ID: 1, Suma €500.0, kategorija ALGA, data: 2023-10-29 16:20, pajamų gavimo būdas I_SASKAITA
-pajamos ID: 2, Suma €300.0, kategorija INVESTICIJOS, data: 2023-10-29 16:20, pajamų gavimo būdas GRYNIEJI
-pajamos ID: 3, Suma €600.0, kategorija STIPENDIJA, data: 2023-10-29 16:20, pajamų gavimo būdas I_SASKAITA
+pajamos ID: 1, Suma €1500.0, kategorija ALGA, data: 2023-11-04 17:03, pajamų gavimo būdas I_SASKAITA
+pajamos ID: 2, Suma €500.0, kategorija INVESTICIJOS, data: 2023-11-04 17:03, pajamų gavimo būdas GRYNIEJI
+islaidos ID: 3, Suma €300.0, kategorija PASKOLA, data: 2023-11-04 17:03, išlaidos būdas MASTERCARD
+ islaidos ID: 4, Suma €300.0, kategorija LIZINGAS, data: 2023-11-04 17:03, išlaidos būdas MASTERCARD
+ islaidos ID: 5, Suma €656.0, kategorija KELIONE, data: 2023-11-04 17:03, išlaidos būdas GRYNIEJI
+ 
