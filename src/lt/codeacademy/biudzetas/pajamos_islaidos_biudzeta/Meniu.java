@@ -13,6 +13,7 @@ public class Meniu {
                 [6] - ATSPAUSDINTI BALANSA.
                 [7] - IŠSAUGOTI ĮRAŠUS Į FAILĄ.
                 [8] - GAUTI DUOMENIS IŠ ĮRAŠŲ FAILO.
+                [9] - IŠSAUGOTI ĮRAŠUS JSON FORMATU.
                 [0] - BAIGTI.""";
     }
 

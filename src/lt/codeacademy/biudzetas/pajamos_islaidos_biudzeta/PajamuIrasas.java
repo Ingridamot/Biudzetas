@@ -1,6 +1,6 @@
 package lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta;
 
-import lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta.enumai.PajamuGavimoBudas;
+import lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta.enumai.IslaiduIrPajamuBudas;
 import lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta.enumai.PajamuIslaiduEnumas;
 import lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta.enumai.PajamuKategorija;
 
@@ -9,21 +9,16 @@ import java.time.LocalDateTime;
 public class PajamuIrasas extends Irasas{
 
     private PajamuKategorija kategorija = PajamuKategorija.ALGA;
-    private PajamuGavimoBudas budas;
 
     public PajamuIrasas(double suma, LocalDateTime data, PajamuKategorija kategorija, String papildomaInfo) {
-        super(suma, data, papildomaInfo, PajamuIslaiduEnumas.PAJAMOS);
+        super(suma, data, papildomaInfo, PajamuIslaiduEnumas.PAJAMOS, IslaiduIrPajamuBudas.MASTERCARD);
         this.kategorija = kategorija;
-        this.budas = PajamuGavimoBudas.I_SASKAITA;
-    }
-
-    public PajamuGavimoBudas getBudas() {
         if (kategorija.equals(PajamuKategorija.ALGA)) {
-            return PajamuGavimoBudas.I_SASKAITA;
+            this.budas = IslaiduIrPajamuBudas.I_SASKAITA;
         } else if (kategorija.equals(PajamuKategorija.STIPENDIJA)){
-            return PajamuGavimoBudas.I_SASKAITA;
+            this.budas = IslaiduIrPajamuBudas.I_SASKAITA;
         } else {
-            return PajamuGavimoBudas.GRYNIEJI;
+            this.budas = IslaiduIrPajamuBudas.GRYNIEJI;
         }
     }
 

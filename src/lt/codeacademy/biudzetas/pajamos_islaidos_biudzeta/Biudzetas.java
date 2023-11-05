@@ -31,6 +31,13 @@ public class Biudzetas {
 
     }
 
+    public ArrayList<PajamuIrasas> gautiPajamuIrasus() {
+        return new ArrayList<>(pajamos);
+    }
+    public ArrayList<IslaiduIrasas> gautiIslaiduIrasus() {
+        return new ArrayList<>(islaidos);
+    }
+
 
     public double getBendrosMenesioIslaidos() {
         double sumaIslaidos = 0.0;

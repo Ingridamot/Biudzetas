@@ -1,12 +1,18 @@
 package lt.codeacademy.biudzetas;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta.*;
 import lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta.enumai.IslaiduKategorija;
 import lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta.enumai.PajamuKategorija;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -37,14 +43,40 @@ public class Programa {
                 case 6 -> spausdintiBalansa(biudzetas);
                 case 7 -> issaugotiDuomenisFaile(biudzetas);
                 case 8 -> gautiDuomenisIsFailo(biudzetas);
+                case 9 -> sukurtiJsonFile(biudzetas);
                 default -> System.out.println("Netinkamas pasirinkimas, iveskite skaičių nuo 0 iki 5");
             }
         }
     }
 
+    private static void sukurtiJsonFile(Biudzetas biudzetas) {
+        List<PajamuIrasas> pajamos = new ArrayList<>();
+        List<IslaiduIrasas> islaidos = new ArrayList<>();
+
+        pajamos.addAll(biudzetas.gautiPajamuIrasus()); // Gauti pajamų ir išlaidų sąrašus iš biudžeto objekto
+        islaidos.addAll(biudzetas.gautiIslaiduIrasus());
+
+        List<Irasas> irasas = new ArrayList<>();
+        irasas.addAll(pajamos);
+        irasas.addAll(islaidos);
+
+        File irasasJsonFile = new File("biudzetas.json");
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        objectMapper.registerModule(new JavaTimeModule()); //
+
+        try {
+            objectMapper.writeValue(irasasJsonFile, irasas);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void gautiDuomenisIsFailo(Biudzetas biudzetas) {
         List<String> lines = biudzetas.readLines("sarasas-pajamos-ir-islaidos.csv");
-        lines.forEach((line) -> {System.out.println(line);});
+        lines.forEach((line) -> {
+            System.out.println(line);
+        });
     }
 
     private static void issaugotiDuomenisFaile(Biudzetas biudzetas) {

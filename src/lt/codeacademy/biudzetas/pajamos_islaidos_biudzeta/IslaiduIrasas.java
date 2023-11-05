@@ -7,22 +7,18 @@ import java.time.LocalDateTime;
 public class IslaiduIrasas extends Irasas{
 
     private IslaiduKategorija kategorija = IslaiduKategorija.PASKOLA;
-    private IslaiduAtsiskaitymoBudas budas;
+    ;
 
 
     public IslaiduIrasas(double suma, LocalDateTime data, IslaiduKategorija kategorija, String papildomaInfo) {
-        super(suma, data, papildomaInfo,PajamuIslaiduEnumas.ISLAIDOS);
+        super(suma, data, papildomaInfo,PajamuIslaiduEnumas.ISLAIDOS, IslaiduIrPajamuBudas.MASTERCARD);
         this.kategorija = kategorija;
-        this.budas = IslaiduAtsiskaitymoBudas.MASTERCARD;
-    }
-
-    public IslaiduAtsiskaitymoBudas getBudas() {
         if (kategorija.equals(IslaiduKategorija.PASKOLA)) {
-            return IslaiduAtsiskaitymoBudas.MASTERCARD;
+            this.budas = IslaiduIrPajamuBudas.MASTERCARD;
         } else if (kategorija.equals(IslaiduKategorija.LIZINGAS)) {
-            return IslaiduAtsiskaitymoBudas.MASTERCARD;
+            this.budas = IslaiduIrPajamuBudas.MASTERCARD;
         } else {
-            return IslaiduAtsiskaitymoBudas.GRYNIEJI;
+            this.budas = IslaiduIrPajamuBudas.GRYNIEJI;
         }
     }
 
