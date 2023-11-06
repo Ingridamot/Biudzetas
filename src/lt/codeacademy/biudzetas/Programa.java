@@ -1,6 +1,5 @@
 package lt.codeacademy.biudzetas;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta.*;
@@ -61,6 +60,7 @@ public class Programa {
         irasas.addAll(islaidos);
 
         File irasasJsonFile = new File("biudzetas.json");
+
         ObjectMapper objectMapper = new ObjectMapper();
 
         objectMapper.registerModule(new JavaTimeModule()); //
