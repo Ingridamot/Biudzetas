@@ -73,6 +73,7 @@ public class Programa {
     }
 
     private static void gautiDuomenisIsFailo(Biudzetas biudzetas) {
+        //TODO gauti duomenis is failo ir sudeti atgal i biudzeta
         List<String> lines = biudzetas.readLines("sarasas-pajamos-ir-islaidos.csv");
         lines.forEach((line) -> {
             System.out.println(line);
