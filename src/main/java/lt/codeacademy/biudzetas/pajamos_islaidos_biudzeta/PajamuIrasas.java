@@ -2,20 +2,19 @@ package lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta;
 
 import lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta.enumai.IslaiduIrPajamuBudas;
 import lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta.enumai.PajamuIslaiduEnumas;
-import lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta.enumai.PajamuKategorija;
 
 import java.time.LocalDateTime;
 
 public class PajamuIrasas extends Irasas{
 
-    private PajamuKategorija kategorija = PajamuKategorija.ALGA;
+    private PajamuIslaiduEnumas kategorija = PajamuIslaiduEnumas.ALGA;
 
-    public PajamuIrasas(double suma, LocalDateTime data, PajamuKategorija kategorija, String papildomaInfo) {
-        super(suma, data, papildomaInfo, PajamuIslaiduEnumas.PAJAMOS, IslaiduIrPajamuBudas.MASTERCARD);
+    public PajamuIrasas(int id, double suma, LocalDateTime data, PajamuIslaiduEnumas kategorija, IslaiduIrPajamuBudas budas) {
+        super(suma, data, PajamuIslaiduEnumas.PAJAMOS, IslaiduIrPajamuBudas.MASTERCARD);
         this.kategorija = kategorija;
-        if (kategorija.equals(PajamuKategorija.ALGA)) {
+        if (kategorija.equals(PajamuIslaiduEnumas.ALGA)) {
             this.budas = IslaiduIrPajamuBudas.I_SASKAITA;
-        } else if (kategorija.equals(PajamuKategorija.STIPENDIJA)){
+        } else if (kategorija.equals(PajamuIslaiduEnumas.STIPENDIJA)){
             this.budas = IslaiduIrPajamuBudas.I_SASKAITA;
         } else {
             this.budas = IslaiduIrPajamuBudas.GRYNIEJI;
@@ -31,7 +30,7 @@ public class PajamuIrasas extends Irasas{
     @Override
     public String toString(){
         return String.format(
-                "pajamos ID: %s, Suma €%s, kategorija %s, data: %s, pajamų gavimo būdas %s%n",
+                "Pajamos ID: %s, Pajamų Suma €: %s, kategorija: %s, data: %s,Pajamos gavimo būdas: %s%n",
                 getId(), getSuma(), getKategorija(), getData().format(myFormatObj),getBudas());
     }
 
@@ -39,9 +38,9 @@ public class PajamuIrasas extends Irasas{
     public boolean setKategorija(String tipas) {
         tipas = tipas.toUpperCase();
         switch (tipas) {
-            case "ALGA" -> kategorija = PajamuKategorija.ALGA;
-            case "STIPENDIJA" -> kategorija = PajamuKategorija.STIPENDIJA;
-            case "INVESTICIJOS" -> kategorija = PajamuKategorija.INVESTICIJOS;
+            case "ALGA" -> kategorija = PajamuIslaiduEnumas.ALGA;
+            case "STIPENDIJA" -> kategorija = PajamuIslaiduEnumas.STIPENDIJA;
+            case "INVESTICIJOS" -> kategorija = PajamuIslaiduEnumas.INVESTICIJOS;
             default -> {
                 return false;
             }

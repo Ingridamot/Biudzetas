@@ -6,21 +6,21 @@ import java.time.LocalDateTime;
 
 public class IslaiduIrasas extends Irasas{
 
-    private IslaiduKategorija kategorija = IslaiduKategorija.PASKOLA;
-    ;
+    private PajamuIslaiduEnumas kategorija = PajamuIslaiduEnumas.PASKOLA;
 
 
-    public IslaiduIrasas(double suma, LocalDateTime data, IslaiduKategorija kategorija, String papildomaInfo) {
-        super(suma, data, papildomaInfo,PajamuIslaiduEnumas.ISLAIDOS, IslaiduIrPajamuBudas.MASTERCARD);
+    public IslaiduIrasas(int id, double suma, LocalDateTime data, PajamuIslaiduEnumas kategorija, IslaiduIrPajamuBudas budas) {
+        super(suma, data,PajamuIslaiduEnumas.ISLAIDOS, IslaiduIrPajamuBudas.MASTERCARD);
         this.kategorija = kategorija;
-        if (kategorija.equals(IslaiduKategorija.PASKOLA)) {
+        if (kategorija.equals(PajamuIslaiduEnumas.PASKOLA)) {
             this.budas = IslaiduIrPajamuBudas.MASTERCARD;
-        } else if (kategorija.equals(IslaiduKategorija.LIZINGAS)) {
+        } else if (kategorija.equals(PajamuIslaiduEnumas.LIZINGAS)) {
             this.budas = IslaiduIrPajamuBudas.MASTERCARD;
         } else {
             this.budas = IslaiduIrPajamuBudas.GRYNIEJI;
         }
     }
+
 
     @Override
     public String getKategorija(){
@@ -30,17 +30,17 @@ public class IslaiduIrasas extends Irasas{
     @Override
     public String toString(){
         return String.format(
-                "islaidos ID: %s, Suma €%s, kategorija %s, data: %s, išlaidos būdas %s%n ",
+                "Išlaidos ID: %s, Išlaidų Suma €: %s, kategorija: %s, data: %s, Išlaidos būdas: %s%n ",
                  getId(), getSuma(), getKategorija(), getData().format(myFormatObj), getBudas());
     }
     @Override
     public boolean setKategorija(String tipas) {
         tipas = tipas.toUpperCase();
         switch (tipas) {
-            case "PASKOLA" -> kategorija = IslaiduKategorija.PASKOLA;
-            case "LIZINGAS" -> kategorija = IslaiduKategorija.LIZINGAS;
-            case "KELIONE" -> kategorija = IslaiduKategorija.KELIONE;
-            case "PIRKINIAI" -> kategorija = IslaiduKategorija.PIRKINIAI;
+            case "PASKOLA" -> kategorija = PajamuIslaiduEnumas.PASKOLA;
+            case "LIZINGAS" -> kategorija = PajamuIslaiduEnumas.LIZINGAS;
+            case "KELIONE" -> kategorija = PajamuIslaiduEnumas.KELIONE;
+            case "PIRKINIAI" -> kategorija = PajamuIslaiduEnumas.PIRKINIAI;
             default -> {
                 return false;
             }

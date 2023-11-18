@@ -88,11 +88,10 @@ public class Biudzetas {
         try {
             var writer = new BufferedWriter(new FileWriter(filename));
             for(int i =0; i< irasasList.size(); i++){
-                if (i == irasasList.size()-1){
-                    writer.write(irasasList.get(i).toString());
-                } else {
-                    writer.write(irasasList.get(i).toString());
-                }
+                String irasas = irasasList.get(i).toString();
+                int indeks = irasas.indexOf(",");
+                irasas = irasas.substring(indeks + 1).trim()+'\n';
+                writer.write(irasas);
             }
             writer.flush();
             writer.close();

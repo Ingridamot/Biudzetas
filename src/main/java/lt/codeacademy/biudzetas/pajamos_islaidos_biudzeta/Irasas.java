@@ -24,7 +24,6 @@ public class Irasas {
 @JsonCreator
     public Irasas( @JsonProperty("suma") double suma,
                    @JsonProperty("data") LocalDateTime data,
-                   @JsonProperty("papildomaInfo") String papildomaInfo,
                    @JsonProperty("tipas") PajamuIslaiduEnumas tipas,
                    @JsonProperty("budas") IslaiduIrPajamuBudas budas) {
         this.id = nextId;

@@ -3,8 +3,8 @@ package lt.codeacademy.biudzetas;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta.*;
-import lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta.enumai.IslaiduKategorija;
-import lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta.enumai.PajamuKategorija;
+import lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta.enumai.IslaiduIrPajamuBudas;
+import lt.codeacademy.biudzetas.pajamos_islaidos_biudzeta.enumai.PajamuIslaiduEnumas;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Programa {
+
+    public static DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
 
     public static void main(String[] args) {
 
@@ -73,10 +76,20 @@ public class Programa {
     }
 
     private static void gautiDuomenisIsFailo(Biudzetas biudzetas) {
-        //TODO gauti duomenis is failo ir sudeti atgal i biudzeta
         List<String> lines = biudzetas.readLines("sarasas-pajamos-ir-islaidos.csv");
-        lines.forEach((line) -> {
-            System.out.println(line);
+        lines.forEach(line -> {
+            String[] parts = line.split(",");
+            String[] zodziai = line.split(" ");
+            double suma = Double.parseDouble(parts[0].split(":")[1].trim());
+            PajamuIslaiduEnumas kategorija = PajamuIslaiduEnumas.valueOf(parts[1].split(":")[1].trim());
+            LocalDateTime date = LocalDateTime.parse(parts[2].split(":")[1].trim() + ":" + parts[2].split(":")[2].trim(), myFormatObj);
+            IslaiduIrPajamuBudas budas = IslaiduIrPajamuBudas.valueOf(parts[3].split(":")[1].trim());
+            int id= 0;
+            if(zodziai[0].equals("Išlaidų")){
+                biudzetas.pridetiIrasa(new IslaiduIrasas(id, suma, date, kategorija, budas));
+            }else {
+                biudzetas.pridetiIrasa(new PajamuIrasas(id, suma, date, kategorija, budas));
+            }
         });
     }
 
@@ -185,16 +198,18 @@ public class Programa {
         while (noriuVestiIslaidas) {
             int sk = Integer.parseInt(sc.nextLine());
             try {
-                IslaiduKategorija kategorija = switch (sk) {
-                    case 1 -> IslaiduKategorija.PASKOLA;
-                    case 2 -> IslaiduKategorija.LIZINGAS;
-                    case 3 -> IslaiduKategorija.KELIONE;
-                    case 4 -> IslaiduKategorija.PIRKINIAI;
+                PajamuIslaiduEnumas kategorija = switch (sk) {
+                    case 1 -> PajamuIslaiduEnumas.PASKOLA;
+                    case 2 -> PajamuIslaiduEnumas.LIZINGAS;
+                    case 3 -> PajamuIslaiduEnumas.KELIONE;
+                    case 4 -> PajamuIslaiduEnumas.PIRKINIAI;
                     default -> throw new RuntimeException();
                 };
                 System.out.println("iveskite kategorijos " + kategorija + " suma");
                 int suma = Integer.parseInt(sc.nextLine());
-                biudzetas.pridetiIrasa(new IslaiduIrasas(suma, LocalDateTime.now(), kategorija, "papildoma info"));
+                IslaiduIrPajamuBudas budas = IslaiduIrPajamuBudas.GRYNIEJI;
+                int id = 0;
+                biudzetas.pridetiIrasa(new IslaiduIrasas(id, suma, LocalDateTime.now(), kategorija, budas));
             } catch (InputMismatchException e) {
                 System.out.println("Įvesta neleistina reikšmė. Prašome įvesti skaičių.");
             } catch (RuntimeException e) {
@@ -210,15 +225,17 @@ public class Programa {
         while (noriuVestiPajamas) {
             int sk = Integer.parseInt(sc.nextLine());
             try {
-                PajamuKategorija kategorija = switch (sk) {
-                    case 1 -> PajamuKategorija.ALGA;
-                    case 2 -> PajamuKategorija.INVESTICIJOS;
-                    case 3 -> PajamuKategorija.STIPENDIJA;
+                PajamuIslaiduEnumas kategorija = switch (sk) {
+                    case 1 -> PajamuIslaiduEnumas.ALGA;
+                    case 2 -> PajamuIslaiduEnumas.INVESTICIJOS;
+                    case 3 -> PajamuIslaiduEnumas.STIPENDIJA;
                     default -> throw new RuntimeException();
                 };
                 System.out.println("iveskite kategorijos " + kategorija + " suma");
                 int suma = Integer.parseInt(sc.nextLine());
-                biudzetas.pridetiIrasa(new PajamuIrasas(suma, LocalDateTime.now(), kategorija, "papildoma info"));
+                IslaiduIrPajamuBudas budas =IslaiduIrPajamuBudas.I_SASKAITA;
+                int id =0;
+                biudzetas.pridetiIrasa(new PajamuIrasas(id, suma, LocalDateTime.now(), kategorija, budas));
             } catch (InputMismatchException e) {
                 System.out.println("Įvesta neleistina reikšmė. Prašome įvesti skaičių.");
             } catch (RuntimeException e) {
